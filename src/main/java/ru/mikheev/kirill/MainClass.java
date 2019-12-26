@@ -1,5 +1,7 @@
 package ru.mikheev.kirill;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ru.mikheev.kirill.dao.UserDAO;
 import ru.mikheev.kirill.dao.UserRoleDAO;
 import ru.mikheev.kirill.entities.User;
@@ -16,6 +18,8 @@ import java.sql.Statement;
  */
 
 public class MainClass {
+    private static final Logger logger = LogManager.getLogger(MainClass.class);
+
     public static void main(String[] args) {
         Connection connection = null;
         try {
@@ -27,7 +31,7 @@ public class MainClass {
             connection.setAutoCommit(false);
             Statement statement = connection.createStatement();
             statement.addBatch(
-                    "CREATE TABLE postgres.public.\"USER\"( \n" +
+                    "CREATE TABLE USERS( \n" +
                             "    id INTEGER, \n" +
                             "    name VARCHAR(50) NOT NULL, \n" +
                             "    birthday VARCHAR(50) NOT NULL, \n" +
@@ -38,17 +42,26 @@ public class MainClass {
                             ");"
             );
             statement.addBatch(
-                    "CREATE TABLE postgres.public.\"ROLE\"( \n" +
+                    "CREATE TABLE ROLE( \n" +
                             "    id INTEGER, \n" +
                             "    name VARCHAR(50) NOT NULL, \n" +
                             "    description VARCHAR(100) NOT NULL\n" +
                             ");"
             );
             statement.addBatch(
-                    "CREATE TABLE postgres.public.\"USER_ROLE\"( \n" +
+                    "CREATE TABLE USER_ROLE( \n" +
                             "    id INTEGER, \n" +
                             "    user_id INTEGER, \n" +
                             "    role_id INTEGER \n" +
+                            ");"
+            );
+            statement.addBatch(
+                    "CREATE TABLE LOGS( \n" +
+                            "   id VARCHAR(50) NOT NULL, \n" +
+                            "   date VARCHAR(50) NOT NULL, \n" +
+                            "   log_level VARCHAR(50) NOT NULL, \n" +
+                            "   message VARCHAR(50) NOT NULL, \n" +
+                            "   exception VARCHAR(50) NOT NULL\n" +
                             ");"
             );
             statement.executeBatch();
@@ -56,6 +69,9 @@ public class MainClass {
             connection.commit();
             connection.setAutoCommit(true);
             fill(connection);
+
+            logger.error("Test");
+
         }catch (ClassNotFoundException e){
             e.printStackTrace();
         }catch (SQLException e){

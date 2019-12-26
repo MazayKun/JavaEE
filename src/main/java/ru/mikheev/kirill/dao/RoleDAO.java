@@ -15,7 +15,7 @@ import java.sql.SQLException;
 public class RoleDAO{
 
     /** Подготовленный шаблон запроса на добавление в базу */
-    private final String request = "INSERT INTO postgres.public.\"ROLE\"(id, name, description) VALUES (?, ?, ?);";
+    private final String request = "INSERT INTO ROLE(id, name, description) VALUES (?, ?, ?);";
 
     /**
      * Метод добавляет в таблицу ROLE новый объект типа Role

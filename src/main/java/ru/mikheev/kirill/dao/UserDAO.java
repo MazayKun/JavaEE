@@ -15,7 +15,7 @@ import java.sql.SQLException;
 public class UserDAO {
 
     /** Подготовленный шаблон запроса на добавление в базу */
-    private final String request = "INSERT INTO postgres.public.\"USER\"(id, name, birthday, login_id, city, email, description) VALUES (?, ?, ?, ?, ?, ?, ?);";
+    private final String request = "INSERT INTO USERS(id, name, birthday, login_id, city, email, description) VALUES (?, ?, ?, ?, ?, ?, ?);";
 
     /**
      * Метод добавляет в таблицу USER новый объект типа User
