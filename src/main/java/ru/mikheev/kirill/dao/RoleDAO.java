@@ -1,5 +1,7 @@
 package ru.mikheev.kirill.dao;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ru.mikheev.kirill.entities.Role;
 
 import java.sql.Connection;
@@ -13,6 +15,8 @@ import java.sql.SQLException;
  */
 
 public class RoleDAO{
+    /** logger */
+    private static final Logger logger = LogManager.getLogger(RoleDAO.class);
 
     /** Подготовленный шаблон запроса на добавление в базу */
     private final String request = "INSERT INTO ROLE(id, name, description) VALUES (?, ?, ?);";
@@ -30,5 +34,6 @@ public class RoleDAO{
         statement.setString(3, entity.getDescription());
         statement.execute();
         statement.close();
+        logger.info("Add new role with id " + entity.getId());
     }
 }

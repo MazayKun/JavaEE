@@ -1,5 +1,7 @@
 package ru.mikheev.kirill.dao;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ru.mikheev.kirill.entities.User;
 
 import java.sql.Connection;
@@ -13,6 +15,9 @@ import java.sql.SQLException;
  */
 
 public class UserDAO {
+
+    /** logger */
+    private static final Logger logger = LogManager.getLogger(UserDAO.class);
 
     /** Подготовленный шаблон запроса на добавление в базу */
     private final String request = "INSERT INTO USERS(id, name, birthday, login_id, city, email, description) VALUES (?, ?, ?, ?, ?, ?, ?);";
@@ -34,5 +39,6 @@ public class UserDAO {
         statement.setString(7, entity.getDescription());
         statement.execute();
         statement.close();
+        logger.info("Add new user with id " + entity.getId());
     }
 }

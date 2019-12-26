@@ -11,8 +11,8 @@
         </JDBC>
     </Appenders>
     <Loggers>
-        <Root level="error">
-            <AppenderRef ref="db" level="error" />
+        <Root level="info">
+            <AppenderRef ref="db" level="info" />
         </Root>
     </Loggers>
 </Configuration>

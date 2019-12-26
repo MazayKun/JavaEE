@@ -7,6 +7,7 @@ import ru.mikheev.kirill.dao.UserRoleDAO;
 import ru.mikheev.kirill.entities.User;
 import ru.mikheev.kirill.entities.UserRole;
 
+import java.io.EOFException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -68,19 +69,18 @@ public class MainClass {
             statement.close();
             connection.commit();
             connection.setAutoCommit(true);
+            logger.info("Created 4 main tables");
             fill(connection);
 
-            logger.error("Test");
-
         }catch (ClassNotFoundException e){
-            e.printStackTrace();
+            logger.error("Class not found", e);
         }catch (SQLException e){
-            e.printStackTrace();
+            logger.error("SQL error with connection", e);
         }finally {
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                logger.error("SQl error with close", e);
             }
         }
     }
@@ -100,9 +100,11 @@ public class MainClass {
         userDAO.addEntity(connection, user1);
         userDAO.addEntity(connection, user2);
         userDAO.addEntity(connection, user3);
+        logger.info("Filled users table");
         UserRoleDAO userRoleDAO = new UserRoleDAO();
         userRoleDAO.addEntity(connection, userRole1);
         userRoleDAO.addEntity(connection, userRole2);
         userRoleDAO.addEntity(connection, userRole3);
+        logger.info("Filled user_role table");
     }
 }
