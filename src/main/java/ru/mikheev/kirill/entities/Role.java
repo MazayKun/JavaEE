@@ -12,7 +12,7 @@ import java.sql.SQLException;
  * @version 1.0
  */
 
-public class Role implements TableEntity {
+public class Role {
 
     /** Глобальный ID роли  */
     private static int global_role_id = 0;
@@ -69,8 +69,7 @@ public class Role implements TableEntity {
      * @return новую запись
      * @throws SQLException
      */
-    @Override
-    public Role getInstanceBasedOnResultSet(ResultSet resultSet) throws SQLException {
+    public static Role getInstanceBasedOnResultSet(ResultSet resultSet) throws SQLException {
         Role role = null;
         if (resultSet.next()){
             role = new Role(
