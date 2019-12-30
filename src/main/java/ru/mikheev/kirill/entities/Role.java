@@ -1,7 +1,6 @@
 package ru.mikheev.kirill.entities;
 
 import ru.mikheev.kirill.accessory.RoleDefinitions;
-import ru.mikheev.kirill.accessory.TableEntity;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

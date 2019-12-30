@@ -1,7 +1,5 @@
 package ru.mikheev.kirill.entities;
 
-import ru.mikheev.kirill.accessory.TableEntity;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -11,7 +9,7 @@ import java.sql.SQLException;
  * @version 1.0
  */
 
-public class User implements TableEntity {
+public class User {
     /** Глобальный ID пользователей  */
     private static int global_id = 0;
 
@@ -107,8 +105,7 @@ public class User implements TableEntity {
      * @return новую запись
      * @throws SQLException
      */
-    @Override
-    public User getInstanceBasedOnResultSet(ResultSet resultSet) throws SQLException {
+    public static User getInstanceBasedOnResultSet(ResultSet resultSet) throws SQLException {
         User newUser = null;
         if(resultSet.next()){
             newUser = new User(

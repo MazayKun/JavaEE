@@ -40,11 +40,21 @@ public class RoleDAO{
     }
 
 
+    /**
+     * Получение роли с заданным id
+     * @param connection подключение к бд
+     * @param id роли, которую нужно получить
+     * @return нужная роль
+     * @throws SQLException
+     */
     public Role getByID(Connection connection, int id) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(GET_REQUEST);
         statement.setInt(1, id);
         ResultSet resultSet = statement.executeQuery();
+        Role role = Role.getInstanceBasedOnResultSet(resultSet);
+        resultSet.close();
         statement.close();
-        return Role.getInstanceBasedOnResultSet(resultSet);
+        return role;
+
     }
 }

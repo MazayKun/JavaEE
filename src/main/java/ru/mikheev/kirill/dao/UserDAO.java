@@ -6,6 +6,7 @@ import ru.mikheev.kirill.entities.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -19,8 +20,9 @@ public class UserDAO {
     /** logger */
     private static final Logger logger = LogManager.getLogger(UserDAO.class);
 
-    /** Подготовленный шаблон запроса на добавление в базу */
-    private final String request = "INSERT INTO USERS(id, name, birthday, login_id, city, email, description) VALUES (?, ?, ?, ?, ?, ?, ?);";
+    /** Подготовленные шаблоны запросов */
+    private final String ADD_REQUEST = "INSERT INTO USERS(id, name, birthday, login_id, city, email, description) VALUES (?, ?, ?, ?, ?, ?, ?);";
+    private final String GET_REQUEST = "SELECT * FROM USER WHERE id=?;";
 
     /**
      * Метод добавляет в таблицу USER новый объект типа User
@@ -29,7 +31,7 @@ public class UserDAO {
      * @throws SQLException
      */
     public void addEntity(Connection connection, User entity) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement(request);
+        PreparedStatement statement = connection.prepareStatement(ADD_REQUEST);
         statement.setInt(1, entity.getId());
         statement.setString(2, entity.getName());
         statement.setString(3, entity.getBirthday());
@@ -40,5 +42,22 @@ public class UserDAO {
         statement.execute();
         statement.close();
         logger.info("Add new user with id " + entity.getId());
+    }
+
+    /**
+     * Получение пользователя с заданным id
+     * @param connection подключение к бд
+     * @param id пользователя, которого нужно получить
+     * @return нужный пользователь
+     * @throws SQLException
+     */
+    public User getByID(Connection connection, int id) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement(GET_REQUEST);
+        statement.setInt(1, id);
+        ResultSet resultSet = statement.executeQuery();
+        User user = User.getInstanceBasedOnResultSet(resultSet);
+        resultSet.close();
+        statement.close();
+        return user;
     }
 }

@@ -1,6 +1,5 @@
 package ru.mikheev.kirill.entities;
 
-import ru.mikheev.kirill.accessory.TableEntity;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -10,7 +9,7 @@ import java.sql.SQLException;
  * @version 1.0
  */
 
-public class UserRole implements TableEntity {
+public class UserRole {
 
     /** Глобальный ID роли пользователя */
     private static int global_user_role_id = 0;
@@ -66,8 +65,7 @@ public class UserRole implements TableEntity {
      * @return новую запись
      * @throws SQLException
      */
-    @Override
-    public UserRole getInstanceBasedOnResultSet(ResultSet resultSet) throws SQLException {
+    public static UserRole getInstanceBasedOnResultSet(ResultSet resultSet) throws SQLException {
         UserRole userRole = null;
         if (resultSet.next()){
             userRole= new UserRole(
