@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -91,7 +92,10 @@ public class MainClass {
             System.out.println(user.getName());
             System.out.println(userRole.getRole_id());
 
-
+            ArrayList<User> test = userDAO.getUserSampleByDescription(connection, "description");
+            for(User tmp : test) {
+                System.out.println(tmp.getLogin_ID());
+            }
         }catch (ClassNotFoundException e){
             logger.error("Class not found", e);
         }catch (SQLException e){

@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Класс для пересылки объектов User между приложением и базой данных
@@ -23,6 +25,7 @@ public class UserDAO {
     /** Подготовленные шаблоны запросов */
     private final String ADD_REQUEST = "INSERT INTO USERS(id, name, birthday, login_id, city, email, description) VALUES (?, ?, ?, ?, ?, ?, ?);";
     private final String GET_REQUEST = "SELECT * FROM USERS WHERE id=?;";
+    private final String GET_REQUEST_BY_DESCRIPTION = "SELECT * FROM USERS WHERE DESCRIPTION=?;";
 
     /**
      * Метод добавляет в таблицу USER новый объект типа User
@@ -60,5 +63,27 @@ public class UserDAO {
         resultSet.close();
         statement.close();
         return user;
+    }
+
+    /**
+     * Метод создан исключительно для того, чтоб протестировать его, потому что у всех пользователей в таблице в поле
+     * description написано "description", поэтому подразумивается, что при выызове этого метода с таким параметром
+     * вернется все содержимой таблицы
+     * @param connection соединение с бд
+     * @param template шаблон строки, которая должна быть записана в поле description
+     * @return ArrayList пользователей, у которых значение поля description совпадает с заданным
+     */
+    public ArrayList<User> getUserSampleByDescription(Connection connection, String template) throws SQLException {
+        logger.info("Запрос на получение всех пользователей, у которых значение поля description совпадает с " + template);
+        PreparedStatement statement = connection.prepareStatement(GET_REQUEST_BY_DESCRIPTION);
+        statement.setString(1, template);
+        ResultSet resultSet = statement.executeQuery();
+        ArrayList<User> answer = new ArrayList<>();
+        User user = User.getInstanceBasedOnResultSet(resultSet);
+        while(user != null){
+            answer.add(user);
+            user = User.getInstanceBasedOnResultSet(resultSet);
+        }
+        return answer;
     }
 }

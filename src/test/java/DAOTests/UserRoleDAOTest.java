@@ -3,9 +3,7 @@ package DAOTests;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.mikheev.kirill.dao.UserDAO;
 import ru.mikheev.kirill.dao.UserRoleDAO;
-import ru.mikheev.kirill.entities.User;
 import ru.mikheev.kirill.entities.UserRole;
 
 import java.sql.Connection;
