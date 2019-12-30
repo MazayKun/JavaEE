@@ -66,6 +66,7 @@ public class UserRoleDAOTest {
     }
 
     /**
+     * ghj,ktvjxrf
      * Закрывает соединение после выполнения теста
      */
     @AfterEach
