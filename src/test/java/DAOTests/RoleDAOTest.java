@@ -2,7 +2,6 @@ package DAOTests;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import ru.mikheev.kirill.accessory.RoleDefinitions;
 import ru.mikheev.kirill.dao.RoleDAO;
@@ -23,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.fail;
  * @version 1.0
  */
 
-public class RoleDAOTest {
+class RoleDAOTest {
 
     /** Необходимые для тестирования объекты */
     private Connection connection = null;
@@ -45,9 +44,7 @@ public class RoleDAOTest {
                     "postgres",
                     "admin");
             isConnected = true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
