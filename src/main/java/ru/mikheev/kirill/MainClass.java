@@ -71,7 +71,7 @@ public class MainClass {
                                 "   date VARCHAR(50) NOT NULL, \n" +
                                 "   log_level VARCHAR(50) NOT NULL, \n" +
                                 "   message VARCHAR(50) NOT NULL, \n" +
-                                "   exception VARCHAR(50) NOT NULL\n" +
+                                "   exception VARCHAR(1024) NOT NULL\n" +
                                 ");"
                 );
                 statement.executeBatch();

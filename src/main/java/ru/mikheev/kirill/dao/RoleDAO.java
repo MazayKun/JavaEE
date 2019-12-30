@@ -48,6 +48,7 @@ public class RoleDAO{
      * @throws SQLException
      */
     public Role getByID(Connection connection, int id) throws SQLException {
+        logger.info("Запрос на получение роли с id = " + id);
         PreparedStatement statement = connection.prepareStatement(GET_REQUEST);
         statement.setInt(1, id);
         ResultSet resultSet = statement.executeQuery();

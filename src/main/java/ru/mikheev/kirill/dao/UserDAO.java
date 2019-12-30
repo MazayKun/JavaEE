@@ -22,7 +22,7 @@ public class UserDAO {
 
     /** Подготовленные шаблоны запросов */
     private final String ADD_REQUEST = "INSERT INTO USERS(id, name, birthday, login_id, city, email, description) VALUES (?, ?, ?, ?, ?, ?, ?);";
-    private final String GET_REQUEST = "SELECT * FROM USER WHERE id=?;";
+    private final String GET_REQUEST = "SELECT * FROM USERS WHERE id=?;";
 
     /**
      * Метод добавляет в таблицу USER новый объект типа User
@@ -52,6 +52,7 @@ public class UserDAO {
      * @throws SQLException
      */
     public User getByID(Connection connection, int id) throws SQLException {
+        logger.info("Запрос на получение пользователя с id = " + id);
         PreparedStatement statement = connection.prepareStatement(GET_REQUEST);
         statement.setInt(1, id);
         ResultSet resultSet = statement.executeQuery();
