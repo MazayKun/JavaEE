@@ -2,17 +2,21 @@
 <Configuration>
     <Appenders>
         <JDBC name="db" tableName="LOGS">
-            <DriverManager connectionString="jdbc:postgresql://localhost:5432/postgres" driverClassName="org.postgresql.Driver" username="postgres" password="admin" />
+            <DriverManager connectionString="jdbc:postgresql://localhost:5434/postgres" driverClassName="org.postgresql.Driver" username="postgres" password="admin" />
             <Column name="id" pattern="%u" isUnicode="false" />
             <Column name="date" isEventTimestamp="true" isUnicode="false" />
             <Column name="log_level" pattern="%level" isUnicode="false" />
             <Column name="message" pattern="%m" isUnicode="false" />
             <Column name="exception" pattern="%throwable" isUnicode="false" />
         </JDBC>
+        <Console name="stdout" target="System.out">
+            <PatternLayout pattern="%m%n"/>
+        </Console>
     </Appenders>
     <Loggers>
         <Root level="info">
             <AppenderRef ref="db" level="info" />
+            <AppenderRef ref="stdout" level="info"/>
         </Root>
     </Loggers>
 </Configuration>

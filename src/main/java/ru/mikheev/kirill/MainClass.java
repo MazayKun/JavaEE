@@ -35,7 +35,7 @@ public class MainClass {
         try {
             Class.forName("org.postgresql.Driver");
             connection = DriverManager.getConnection(
-                    "jdbc:postgresql://localhost:5432/postgres",
+                    "jdbc:postgresql://localhost:5434/postgres",
                     "postgres",
                     "admin");
             if(FILL_KEY) {
@@ -88,14 +88,9 @@ public class MainClass {
             Role role = roleDAO.getByID(connection, 0);
             User user = userDAO.getByID(connection, 0);
             UserRole userRole = userRoleDAO.getByID(connection, 0);
-            System.out.println(role.getName());
-            System.out.println(user.getName());
-            System.out.println(userRole.getRole_id());
-
-            ArrayList<User> test = userDAO.getUserSampleByDescription(connection, "description");
-            for(User tmp : test) {
-                System.out.println(tmp.getLogin_ID());
-            }
+            logger.info(role.getName());
+            logger.info(user.getName());
+            logger.info(userRole.getRole_id());
         }catch (ClassNotFoundException e){
             logger.error("Class not found", e);
         }catch (SQLException e){
